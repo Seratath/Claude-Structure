@@ -1,0 +1,22 @@
+# Template sources — managed as a separate git repo, pulled independently
+Sources/Claude-Structure/
+
+# Project repos are self-contained; the workspace doesn't commit their contents
+# (git won't recurse into nested repos, but being explicit helps tooling)
+Projects/*/.git/
+
+# OS cruft
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor cruft
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs and temp files
+*.log
+*.tmp

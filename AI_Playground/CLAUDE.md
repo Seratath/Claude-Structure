@@ -2,25 +2,39 @@
 
 > This is a structured, repo-backed workspace. Every project is an independent git repository with its own CLAUDE.md, task tracking, and agent profiles. Work happens inside projects, not at the root. This file is the routing layer — it tells you where to go and how to get started, not how to do the work.
 
+## Bootstrap Check (run every session)
+
+Before any other work, verify the workspace is intact:
+
+1. **`Sources/Claude-Structure/` must exist** — it provides the template sources for new projects and any future updates to this orchestrator.
+   - If missing: **do not auto-restore.** Tell the user it's missing, explain what it's for, and ask before re-cloning from `https://github.com/Seratath/Claude-Structure` into `Sources/Claude-Structure/`. Respect their answer.
+
+2. **`Projects/` must exist** — this is where individual project repos live.
+   - If missing: create it silently with a placeholder README from `Sources/Claude-Structure/AI_Playground/Projects/README.md` if available, otherwise an empty folder.
+
+If both exist, proceed to normal routing below without comment. This check is idempotent — it does nothing when everything is in place.
+
 ## Workspace Structure
 
 ```
-AI_Playground/
+<workspace root>/
   CLAUDE.md          -- you are here (workspace orchestrator)
   Projects/          -- independent project repos (each with own CLAUDE.md)
+  Sources/
+    Claude-Structure/   -- live clone of structure repo (templates, shared agents, skills)
   MCP/               -- MCP server repos (infrastructure, not projects) [future]
 ```
 
 ## Projects (`Projects/`)
 
-Each project is a self-contained git repo. New projects are bootstrapped from the `lifecycle-engineering` template (or another template of your choice).
+Each project is a self-contained git repo. New projects scaffold from `Sources/Claude-Structure/base-project/` (default) or another template.
 
 | Project | Directory | Description |
 |---------|-----------|-------------|
 
 ## MCP Servers (`MCP/`) — Future
 
-MCP servers are infrastructure, not projects. They have their own repos and deployment pipelines. Do not apply project workflow rules to them. This section is reserved for plugins and MCP servers added later.
+MCP servers are infrastructure, not projects. They have their own repos and deployment pipelines. Do not apply project workflow rules to them. Reserved for plugins and MCP servers added later.
 
 | Server | Directory | Description |
 |--------|-----------|-------------|
@@ -29,11 +43,12 @@ MCP servers are infrastructure, not projects. They have their own repos and depl
 
 **When invoked at the workspace root:**
 
-1. Identify which project the user's request relates to
-2. If it maps to a project: read that project's `CLAUDE.md` and follow its workflow entirely — this root file no longer applies
-3. If it maps to an MCP server: work within that server's repo
-4. If it's ambiguous: ask the user which project before proceeding
-5. **Never blend contexts** — do not read files from one project while working in another unless the user explicitly requests it
+1. Run the Bootstrap Check above
+2. Identify which project the user's request relates to
+3. If it maps to a project: read that project's `CLAUDE.md` and follow its workflow entirely — this root file no longer applies
+4. If it maps to an MCP server: work within that server's repo
+5. If it's ambiguous: ask the user which project before proceeding
+6. **Never blend contexts** — do not read files from one project while working in another unless the user explicitly requests it
 
 ## Project Isolation
 
@@ -44,32 +59,41 @@ MCP servers are infrastructure, not projects. They have their own repos and depl
 
 ## Starting a New Project
 
-Clone or copy the `lifecycle-engineering` template into a new directory under `Projects/`, then:
+Templates live in `Sources/Claude-Structure/`. The flow:
 
-1. Create a new repo on GitHub and clone it into `Projects/<new-project>/`
-2. Copy the template structure into the new project root (everything except `.git/`)
-3. Fill in the placeholder values in `CLAUDE.md` (project name, repo URL, product, stack)
-4. The project's bootstrap check will prompt for any remaining gaps on first session
-5. Commit the initial structure and push to GitHub
-6. Add the new project to the table above
+1. Ask the user: name, repo URL (or offer to defer), and which template (`base-project/` unless they have a clear domain fit)
+2. Create `Projects/<new-project>/` and copy the chosen template into it (everything except `.git/`)
+3. If the user provided a GitHub URL, clone into the new directory first, then copy template files over
+4. Fill in placeholder values in the project's `CLAUDE.md` (project name, repo URL, identity)
+5. The project's own bootstrap check handles anything still missing on first session
+6. Commit the initial structure and push
+7. Add the project to the table above
 
-### What the template provides
+### What the base project template provides
 
 - `CLAUDE.md` — project workflow, git rules, agent dispatch, task management
-- `agents/` — composable agent profiles that grow with the project
+- `agents/` — composable agent profiles (starts with GA only; grows with the work)
 - `tasks/` — goals, workboard, decisions, lessons
 - `docs/plans/` — persistent plan documents
-- `repos/` — cloned source repos for analysis (gitignored)
-- `diagrams/` — Mermaid diagrams
+
+### Pulling in a shared agent
+
+Agents live in `Sources/Claude-Structure/Agents/`. When a project needs one:
+
+1. Read `Sources/Claude-Structure/Agents/INDEX.md` to find the right profile
+2. Copy the profile file into the project's `agents/` directory
+3. Enrich its Project-Specific Context section for the new project
+4. Add the agent to the project's dispatch table
 
 ## Session Anchor (Compression-Resilient)
 
 **On every session at the workspace root:**
 
 1. Read this file — re-establish workspace layout and routing rules
-2. Identify the target project before doing any work
-3. Route into the project and follow its CLAUDE.md from that point
-4. **Never work across project boundaries without explicit user direction**
+2. Run the Bootstrap Check
+3. Identify the target project before doing any work
+4. Route into the project and follow its CLAUDE.md from that point
+5. **Never work across project boundaries without explicit user direction**
 
 *This block survives context compression. When in doubt about workspace state, re-read this file.*
 
@@ -78,4 +102,5 @@ Clone or copy the `lifecycle-engineering` template into a new directory under `P
 - Keep the project table above current — update it when projects are added or removed
 - Projects that are archived or abandoned should be noted in the table, not silently left
 - Git remotes use GitHub — HTTPS or SSH both acceptable
+- `Sources/Claude-Structure/` is a live clone — `git pull` there to get template/agent updates; never edit files there to customise a project (edit the project's copy instead)
 - This file should stay concise — it's a router, not a manual
