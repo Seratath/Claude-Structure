@@ -70,6 +70,7 @@ Subsequent sessions: just open Claude at the workspace root. It reads the orches
 | `lifecycle-engineering/` | SaaS/platform engineering template — six specialist agents for mature platform work. Use when the domain is known. |
 | `Agents/` | Shared agent library — copy profiles into your project as needed. Organised by domain (generic, saas, game). |
 | `Skills/` | Shared skills library — reusable procedures injected into agent dispatches for specific repeatable task types. |
+| `Legacy-Template/` | The original numbered-docs template, preserved for reference and migration. Don't use for new projects. |
 
 ## Which Template?
 
