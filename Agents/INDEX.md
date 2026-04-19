@@ -31,7 +31,7 @@ Projects own their local copies. The library is the clean starting point.
 
 | Agent | File | Model | Purpose |
 |-------|------|-------|---------|
-| *(coming soon)* | `game/` | — | Play engineer, systems modeller, UX/engagement, test/QA |
+| Player Critic | `game/play.md` | sonnet / opus | Player's advocate and critic — first contact, friction, cognitive load, audience fit. Not a game designer; represents the actual player sitting in front of it. |
 
 ## Adding New Agents
 
