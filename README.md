@@ -1,6 +1,6 @@
 # Claude Structure
 
-Most people use Claude Code like a chatbot that can edit files. This gives it structure — a workspace where every project is independent, git-backed, and built to support multiple people and agents working in parallel without getting in each other's way.
+Most people use Claude Code like a chatbot that can edit files. This project is designed to give it structure — a workspace where every project is independent, git-backed, and built to support multiple people and agents working in parallel without getting in each other's way.
 
 You get source-controlled projects with persistent memory, clean isolation, and repeatable scaffolding. Claude reads the project state at the start of every session — goals, active work, decisions, lessons — so nobody has to re-explain context, whether it's you picking up tomorrow or a colleague picking up for the first time.
 
