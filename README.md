@@ -28,7 +28,18 @@ Clone this repo, drop the folders into place, and you're ready to start your fir
 | Directory | What it gives you |
 |-----------|------------------|
 | `AI_Playground/` | Workspace orchestrator — routes Claude to the right project, enforces isolation, handles bootstrapping new projects from templates |
-| `lifecycle-engineering/` | Default project template — six composable agent profiles (SRE, DEV, DBE, QA, SEC, GA) with shared quality standards, domain-led analysis, round-table reviews, adversarial challenges, progressive enrichment, task tracking, and skills-based procedures |
+| `base-project/` | Generic project template — starts with GA (North Star guardian) only, grows its agent team as the work demands it. Good for any domain. Start here if unsure. |
+| `lifecycle-engineering/` | SaaS/platform engineering template — six specialist agents (SRE, DEV, DBE, QA, SEC, GA) for mature platform work. Use when the domain is known and the team shape is clear. |
+| `Agents/` | Shared agent library — copy profiles into your project as needed. Organised by domain (generic, saas, game). Add new ones as they emerge. |
+| `Skills/` | Shared skills library — reusable procedures injected into agent dispatches for specific repeatable task types. |
+
+## Which Template?
+
+**Not sure where to start?** Use `base-project/`. It opens with a short GA-led conversation to capture your vision, then gets out of the way. Agents and structure grow from the work.
+
+**Know your domain and team shape?** Use a specialist template like `lifecycle-engineering/` for a pre-built agent team suited to that type of work.
+
+**Building something new that doesn't fit existing templates?** Start with `base-project/`, build the agents you need, then contribute the good ones back to `Agents/`.
 
 ## How It Works
 
