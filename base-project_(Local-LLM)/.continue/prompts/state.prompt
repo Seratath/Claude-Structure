@@ -1,0 +1,13 @@
+name: Check State
+description: Quick state check — reads protocol/state.md and reports current position
+
+---
+Read protocol/state.md.
+
+Report in four lines:
+- Phase: [current phase]
+- Last stage: [last completed stage]
+- Active jobs: [job IDs or "none"]
+- Next action: [what happens next]
+
+If the file is empty or missing, say so.

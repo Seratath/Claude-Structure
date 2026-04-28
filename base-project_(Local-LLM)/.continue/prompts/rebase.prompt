@@ -1,0 +1,11 @@
+name: Rebase
+description: Force a context rebase — write state to files and prepare for a clean session
+
+---
+Perform a context rebase.
+
+1. Write the current project state to protocol/state.md — phase, last completed stage, active jobs, open items
+2. Write any incomplete or deferred work to tasks/workboard.md
+3. Produce a compact 3-5 bullet summary of what happened this session
+
+Then confirm the rebase is complete and ask the user whether to continue in this session or start fresh.

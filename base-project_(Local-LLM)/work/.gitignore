@@ -1,0 +1,7 @@
+# Job directories are ephemeral working space — not committed
+# Logger Agent captures what matters into tasks/ before jobs are archived
+**/
+!archive/
+!.gitkeep
+archive/**
+!archive/.gitkeep

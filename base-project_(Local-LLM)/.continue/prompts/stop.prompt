@@ -1,0 +1,11 @@
+name: Stop
+description: Halt the pipeline and save current state
+
+---
+The user wants to stop.
+
+1. Write current pipeline position and status to protocol/state.md
+2. Write any open or incomplete items to tasks/workboard.md
+3. Do not dispatch any further agents
+
+Confirm to the user what was saved and what remains open. Ask if there is anything else they need before closing the session.

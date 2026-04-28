@@ -1,0 +1,11 @@
+name: Approve
+description: Approve the current agent output and advance the pipeline
+
+---
+The user has approved the current output.
+
+1. Dispatch the Logger Agent to record this approval — write to the appropriate tasks/ file and update protocol/state.md session log
+2. Increment the cycle counter in protocol/state.md if this completes a full pipeline cycle
+3. Advance the pipeline state in protocol/state.md to the next stage
+
+Then ask the user how they would like to proceed.
